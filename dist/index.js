@@ -779,6 +779,11 @@ async function run() {
       const text = comment.body;
       console.log('text', text);
       let newCommentBody;
+      
+      const options = {
+        mode: "proof",
+        pragma: "no-cache"
+      };
 
       client
       .spellChecker("Bill Gatos", options)
