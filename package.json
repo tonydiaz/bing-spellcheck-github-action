@@ -1,5 +1,5 @@
 {
-  "name": "javascript-action",
+  "name": "bing-spellcheck-github-action",
   "version": "1.0.0",
   "description": "JavaScript Action Template",
   "main": "index.js",
@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
-    "@actions/core": "^1.1.1"
+    "@actions/core": "^1.1.1",
+    "@actions/github": "^1.1.0",
+    "@actions/http-client": "^1.0.8"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",

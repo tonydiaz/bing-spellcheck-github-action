@@ -1,13 +1,19 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Bing spellcheck github action'
+description: 'Spell check you comments'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  spellchecker-key: ${{ secrets.SPELLCHECKER_KEY }}
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  spellchecker-endpoint: ${{ secrets.SPELLCHECKER_ENDPOINT }}
+    required: true
+  github-secret:  ${{ secrets.GITHUB_TOKEN }}
+    required: true
+  # milliseconds:  # id of input
+  #   description: 'number of milliseconds to wait'
+  #   required: true
+  #   default: '1000'
+# outputs:
+#   time: # output will be available to future steps
+    # description: 'The message to output'
 runs:
   using: 'node12'
   main: 'dist/index.js'
