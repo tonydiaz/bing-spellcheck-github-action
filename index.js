@@ -13,7 +13,9 @@ async function run() {
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
-    const comment = {body:"Hello worlld"};//github.context.payload.comment;
+    const comment = {
+      body:"Hello worlld"
+    };//github.context.payload.comment;
     console.log("endpoint", spellcheckEndpoint);
 
     const cognitiveServiceCredentials = new CognitiveServicesCredentials(
@@ -36,7 +38,7 @@ async function run() {
       client
       .spellChecker("Bill Gatos", options)
       .then(result => {
-        console.log("The result is: ");
+        console.log("The result is: ", result);
         result.flaggedTokens.forEach(flaggedToken => {
           flaggedToken.suggestions.forEach(suggestion => {
             console.log(suggestion);
@@ -64,12 +66,12 @@ async function run() {
       // console.log('response', response);
       
       //Update the comment with the corrected spelling
-      await octokit.issues.updateComment({
-        owner: github.context.actor,
-        repo: github.context.payload.repository.name,
-        comment_id: comment.id,
-        body: newCommentBody
-      });
+      // await octokit.issues.updateComment({
+      //   owner: github.context.actor,
+      //   repo: github.context.payload.repository.name,
+      //   comment_id: comment.id,
+      //   body: newCommentBody
+      // });
     }
 
     // const ms = core.getInput('milliseconds');
