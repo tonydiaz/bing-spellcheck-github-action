@@ -12,9 +12,9 @@ async function run() {
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
-    const comment = github.context.payload.comment;
+    const comment = {body:"Hello worlld"};//github.context.payload.comment;
     console.log("endpoint", spellcheckEndpoint);
-    
+
     if (comment) {
       const text = comment.body;
       console.log('text', text);
