@@ -8,7 +8,7 @@ async function run() {
   try {
     console.log("Started the index")
     const spellcheckKey = core.getInput("spellchecker-key");
-    const spellcheckEndpoint = core.getInput("spellchecker-endpoint");
+    const spellcheckEndpoint = "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck";//core.getInput("spellchecker-endpoint");
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
