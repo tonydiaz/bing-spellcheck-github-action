@@ -1,9 +1,9 @@
 name: 'Bing spellcheck github action'
 description: 'Spell check you comments'
 inputs:
-  spellchecker-key: ${{ secrets.SPELLCHECKER_KEY }}
+  spellchecker-key: $SPELLCHECKER_KEY
     required: true
-  spellchecker-endpoint: ${{ secrets.SPELLCHECKER_ENDPOINT }}
+  spellchecker-endpoint: $SPELLCHECKER_ENDPOINT
     required: true
   github-secret:  ${{ secrets.GITHUB_TOKEN }}
     required: true
