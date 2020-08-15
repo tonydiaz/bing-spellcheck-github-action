@@ -6,13 +6,15 @@ const http = require('@actions/http-client');
 // most @actions toolkit packages have async methods
 async function run() {
   try {
+    console.log("Started the index")
     const spellcheckKey = core.getInput("spellchecker-key");
     const spellcheckEndpoint = core.getInput("spellchecker-endpoint");
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
     const comment = github.context.payload.comment;
-
+    console.log("endpoint", spellcheckEndpoint);
+    
     if (comment) {
       const text = comment.body;
       console.log('text', text);
