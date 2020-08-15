@@ -1,9 +1,11 @@
 name: 'Bing spellcheck github action'
 description: 'Spell check you comments'
 with:
-  spellchecker-key: ${{ secrets.SPELLCHECKER_KEY }}
-  spellchecker-endpoint: ${{ secrets.SPELLCHECKER_ENDPOINT }}
-  github-secret:  ${{ secrets.GITHUB_TOKEN }}
+  spellchecker-key:
+    required: true
+  spellchecker-endpoint:
+    required: true
+  github-secret:  
   # milliseconds:  # id of input
   #   description: 'number of milliseconds to wait'
   #   required: true
