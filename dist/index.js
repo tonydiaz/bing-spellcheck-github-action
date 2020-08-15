@@ -659,7 +659,7 @@ async function run() {
       }
       console.log('_http.requestOptions', _http.requestOptions);
       let response = await _http.getJson(spellcheckEndpoint);
-      console.log('response', resopnse);
+      console.log('response', response);
       //Take results and update string
       //For each update check if the suggestions is greater than 75%
       //updated the words in the text

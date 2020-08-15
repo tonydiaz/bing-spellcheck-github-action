@@ -1,4 +1,4 @@
-# Create a JavaScript Action
+# Bing spell check github action
 
 <p align="center">
   <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
