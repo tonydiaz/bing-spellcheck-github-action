@@ -27,7 +27,7 @@ async function run() {
         }
       }
       console.log('_http.requestOptions', _http.requestOptions);
-      let response = await _http.postJson(spellcheckEndpoint, {text: text});
+      let response = await _http.post(spellcheckEndpoint, JSON.stringify({text: text}));
       console.log('response', response);
       //Take results and update string
       //For each update check if the suggestions is greater than 75%
