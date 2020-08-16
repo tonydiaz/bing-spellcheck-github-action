@@ -27,8 +27,6 @@ async function run() {
     });
 
     if (comment) {
-      
-      console.log('text', text);
       let newCommentBody;
       
       const options = {
