@@ -1,18 +1,17 @@
 name: 'Bing spellcheck github action'
+author: 'Tony Diaz'
 description: 'Spell check you comments'
 with:
   spellchecker-key:
     required: true
   spellchecker-endpoint:
-    required: true
+    required: true 
+  spellcheck-confidence: 
+    description: 'minimum confidence to correct the spelling'
+    required: true  
+    default: 0.80 #80%
   github-secret:  
-  # milliseconds:  # id of input
-  #   description: 'number of milliseconds to wait'
-  #   required: true
-  #   default: '1000'
-# outputs:
-#   time: # output will be available to future steps
-    # description: 'The message to output'
+    required: true 
 runs:
   using: 'node12'
   main: 'dist/index.js'

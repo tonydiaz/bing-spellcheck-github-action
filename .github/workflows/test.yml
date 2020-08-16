@@ -25,4 +25,3 @@ jobs:
         spellchecker-key: ${{ secrets.SPELLCHECKER_KEY }}
         spellchecker-endpoint: ${{ secrets.SPELLCHECKER_ENDPOINT }}
         github-secret:  ${{ secrets.GITHUB_TOKEN }}
-        milliseconds: 1000

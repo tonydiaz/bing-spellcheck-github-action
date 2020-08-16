@@ -10,6 +10,7 @@ async function run() {
     console.log("Started the index")
     const spellcheckKey = core.getInput("spellchecker-key");
     const spellcheckEndpoint = core.getInput("spellchecker-endpoint");
+    const spellcheckConfidence = core.getInput("spellchecker-confidence");
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
@@ -26,7 +27,7 @@ async function run() {
     });
 
     if (comment) {
-      const text = comment.body;
+      
       console.log('text', text);
       let newCommentBody;
       
@@ -36,13 +37,14 @@ async function run() {
       };
 
       client
-      .spellChecker("Bill Gatos", options)
+      .spellChecker(comment.body, options)
       .then(result => {
-        console.log("The result is: ", result);
         result.flaggedTokens.forEach(flaggedToken => {
-          flaggedToken.suggestions.forEach(suggestion => {
-            console.log(suggestion);
-          });
+          if(flaggedToken.suggestions) {
+            if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
+              comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion)
+            }
+          }
         });
         //Take results and update string
         //For each update check if the suggestions is greater than 75%
