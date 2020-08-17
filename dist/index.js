@@ -786,7 +786,7 @@ console.log("call spellcheck");
       .then(result => {
         result.flaggedTokens.forEach(flaggedToken => {
           if(flaggedToken.suggestions) {
-            console.logs("suggestions", flaggedToken.suggestions)
+            console.log("suggestions", flaggedToken.suggestions);
             if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
               comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion);
             }
