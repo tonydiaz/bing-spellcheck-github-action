@@ -32,11 +32,11 @@ console.log("call spellcheck");
       client
       .spellChecker(comment.body, options)
       .then(result => {
-        console.log("result", result);
         result.flaggedTokens.forEach(flaggedToken => {
           if(flaggedToken.suggestions) {
+            console.logs("suggestions", flaggedToken.suggestions)
             if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
-              comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion)
+              comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion);
             }
           }
         });
@@ -45,7 +45,7 @@ console.log("call spellcheck");
         console.log("An error occurred:");
         console.error(err);
       });
-
+      console.log("update the comment",  comment.body)
       //Update the comment with the corrected spelling
       await octokit.issues.updateComment({
         owner: github.context.actor,
@@ -53,6 +53,8 @@ console.log("call spellcheck");
         comment_id: comment.id,
         body: comment.body
       });
+      console.log("comment updated");
+
     }
   } catch (error) {
     core.setFailed(error.message);
