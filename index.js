@@ -15,7 +15,6 @@ async function run() {
     const octokit = new github.GitHub(githubSecret);
     const comment = github.context.payload.comment;
   
-    console.log("comment", comment);
 
     const cognitiveServiceCredentials = new CognitiveServicesCredentials(
       spellcheckKey
@@ -25,13 +24,11 @@ async function run() {
     });
 
     if (comment) {
-      let newCommentBody;
-      
       const options = {
         mode: "proof",
         pragma: "no-cache"
       };
-
+console.log("call spellcheck");
       client
       .spellChecker(comment.body, options)
       .then(result => {
@@ -43,10 +40,6 @@ async function run() {
             }
           }
         });
-        //Take results and update string
-        //For each update check if the suggestions is greater than 75%
-        //updated the words in the text
-        newCommentBody = "Hello world";
       })
       .catch(err => {
         console.log("An error occurred:");
