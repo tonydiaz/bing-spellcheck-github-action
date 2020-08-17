@@ -37,12 +37,10 @@ console.log("call spellcheck");
             console.log("suggestions", flaggedToken.suggestions);
             if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
               let correctedComment = comment.body;
-              console.log("comment.body", correctedComment)
-  
+              
               console.log("(flaggedToken.token",  flaggedToken.token)
               console.log("(flaggedToken.suggestions[0].suggestion",  flaggedToken.suggestions[0].suggestion)
-              correctedComment.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion);
-              comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion);
+              correctedComment = comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion);
               console.log("update the comment",  correctedComment)
               //Update the comment with the corrected spelling
                octokit.issues.updateComment({
