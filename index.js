@@ -30,17 +30,15 @@ async function run() {
         core.setFailed('The length of the text exceeds the max (10,000) amount of allowed characters');
         return;
       }
-console.log(comment.body)
+
       await client
       .spellChecker(comment.body, options)
       .then(result => {
         let correctedComment = comment.body;
-        console.log("result.flaggedTokens",result.flaggedTokens);
         result.flaggedTokens.forEach(flaggedToken => {
           if(flaggedToken.suggestions) {
-            console.log("flaggedToken.suggestions", flaggedToken.suggestions)
             if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
-              correctedComment = comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion)
+              correctedComment = correctedComment.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion)
             }
           }
         });
