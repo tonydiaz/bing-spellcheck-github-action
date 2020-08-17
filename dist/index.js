@@ -787,8 +787,10 @@ console.log(comment.body)
       .spellChecker(comment.body, options)
       .then(result => {
         let correctedComment = comment.body;
+        console.log("result.flaggedTokens",result.flaggedTokens);
         result.flaggedTokens.forEach(flaggedToken => {
           if(flaggedToken.suggestions) {
+            console.log("flaggedToken.suggestions", flaggedToken.suggestions)
             if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
               correctedComment = comment.body.replace(flaggedToken.token, flaggedToken.suggestions[0].suggestion)
             }
