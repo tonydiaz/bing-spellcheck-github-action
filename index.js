@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-// const http = require('@actions/http-client');
 const { SpellCheckClient } = require("@azure/cognitiveservices-spellcheck");
 const { CognitiveServicesCredentials } = require("@azure/ms-rest-azure-js");
 
@@ -14,10 +13,9 @@ async function run() {
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
-    const comment = {
-      body:"Hello worlld"
-    };//github.context.payload.comment;
-    console.log("endpoint", spellcheckEndpoint);
+    const comment = github.context.payload.comment;
+  
+    console.log("comment", comment);
 
     const cognitiveServiceCredentials = new CognitiveServicesCredentials(
       spellcheckKey
@@ -37,6 +35,7 @@ async function run() {
       client
       .spellChecker(comment.body, options)
       .then(result => {
+        console.log("result", result);
         result.flaggedTokens.forEach(flaggedToken => {
           if(flaggedToken.suggestions) {
             if(flaggedToken.suggestions[0].score >= spellcheckConfidence ) {
@@ -54,34 +53,14 @@ async function run() {
         console.error(err);
       });
 
-      //Call Bing API with Text
-      // const _http = new http.HttpClient();
-      // _http.requestOptions = {
-      //   headers: {
-      //     'Ocp-Apim-Subscription-Key': spellcheckKey
-      //   }
-      // }
-      // console.log('_http.requestOptions', _http.requestOptions);
-      // let response = await _http.postJson(spellcheckEndpoint, JSON.stringify({text: text}));
-      // console.log('response', response);
-      
       //Update the comment with the corrected spelling
-      // await octokit.issues.updateComment({
-      //   owner: github.context.actor,
-      //   repo: github.context.payload.repository.name,
-      //   comment_id: comment.id,
-      //   body: newCommentBody
-      // });
+      await octokit.issues.updateComment({
+        owner: github.context.actor,
+        repo: github.context.payload.repository.name,
+        comment_id: comment.id,
+        body: comment.body
+      });
     }
-
-    // const ms = core.getInput('milliseconds');
-    // core.info(`Waiting ${ms} milliseconds ...`);
-
-    // core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    // await wait(parseInt(ms));
-    // core.info((new Date()).toTimeString());
-
-    // core.setOutput('time', new Date().toTimeString());
   } catch (error) {
     core.setFailed(error.message);
   }

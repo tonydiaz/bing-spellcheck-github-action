@@ -752,7 +752,6 @@ function serial(list, iterator, callback)
 
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
-// const http = require('@actions/http-client');
 const { SpellCheckClient } = __webpack_require__(285);
 const { CognitiveServicesCredentials } = __webpack_require__(345);
 
@@ -766,10 +765,9 @@ async function run() {
     const githubSecret = core.getInput("github-secret");
   
     const octokit = new github.GitHub(githubSecret);
-    const comment = {
-      body:"Hello worlld"
-    };//github.context.payload.comment;
-    console.log("endpoint", spellcheckEndpoint);
+    const comment = github.context.payload.comment;
+  
+    console.log("comment", comment);
 
     const cognitiveServiceCredentials = new CognitiveServicesCredentials(
       spellcheckKey
@@ -806,34 +804,14 @@ async function run() {
         console.error(err);
       });
 
-      //Call Bing API with Text
-      // const _http = new http.HttpClient();
-      // _http.requestOptions = {
-      //   headers: {
-      //     'Ocp-Apim-Subscription-Key': spellcheckKey
-      //   }
-      // }
-      // console.log('_http.requestOptions', _http.requestOptions);
-      // let response = await _http.postJson(spellcheckEndpoint, JSON.stringify({text: text}));
-      // console.log('response', response);
-      
       //Update the comment with the corrected spelling
-      // await octokit.issues.updateComment({
-      //   owner: github.context.actor,
-      //   repo: github.context.payload.repository.name,
-      //   comment_id: comment.id,
-      //   body: newCommentBody
-      // });
+      await octokit.issues.updateComment({
+        owner: github.context.actor,
+        repo: github.context.payload.repository.name,
+        comment_id: comment.id,
+        body: comment.body
+      });
     }
-
-    // const ms = core.getInput('milliseconds');
-    // core.info(`Waiting ${ms} milliseconds ...`);
-
-    // core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    // await wait(parseInt(ms));
-    // core.info((new Date()).toTimeString());
-
-    // core.setOutput('time', new Date().toTimeString());
   } catch (error) {
     core.setFailed(error.message);
   }
