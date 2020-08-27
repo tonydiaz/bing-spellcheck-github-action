@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Spell checker job
   steps:
-    - name: Spellcheck action step
-      id: spellcheck
-      uses: ./
-      with:
-        spellchecker-key: ${{ secrets.SPELLCHECKER_KEY }}
-        spellchecker-endpoint: ${{ secrets.SPELLCHECKER_ENDPOINT }}
-        spellcheck-confidence: 0.90
-        github-secret: ${{ secrets.GITHUB_TOKEN }}
+    name: Spellcheck action step
+    id: spellcheck
+    uses: ./
+    with:
+      spellchecker-key: ${{ secrets.SPELLCHECKER_KEY }}
+      spellchecker-endpoint: ${{ secrets.SPELLCHECKER_ENDPOINT }}
+      spellcheck-confidence: 0.90
+      github-secret: ${{ secrets.GITHUB_TOKEN }}
